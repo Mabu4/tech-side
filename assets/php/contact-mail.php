@@ -3,15 +3,16 @@
     // Only process POST reqeusts.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
-        $name = strip_tags(trim($_POST["form-name"]));
-				$name = str_replace(array("\r","\n"),array(" "," "),$name);
+        $firstname = strip_tags(trim($_POST["form-firstname"]));
+				$firstname = str_replace(array("\r","\n"),array(" "," "),$firstname);
+        $lastname = strip_tags(trim($_POST["form-lastname"]));
+				$lastname = str_replace(array("\r","\n"),array(" "," "),$lastname);
         $email = filter_var(trim($_POST["form-email"]), FILTER_SANITIZE_EMAIL);
+        $telephone = trim($_POST["form-telephone"]);
         $message = trim($_POST["form-message"]);
-        $amount = trim($_POST["form-amount"]);
-        $technology = trim($_POST["form-technology"]);
-
+        
         // Check that data was sent to the mailer.
-        if ( empty($name) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if ( empty($firstname) OR empty($lastname) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // Set a 400 (bad request) response code and exit.
             http_response_code(400);
             echo "Please complete the form and try again.";
@@ -23,17 +24,17 @@
         $recipient = "info@tech-side.de";
 
         // Set the email subject.
-        $subject = "New contact from $name";
+        $subject = "New contact from $firstname";
 
         // Build the email content.
-        $email_content = "Name: $name\n";
+        $email_content = "Firstname: $firstname\n";
+        $email_content = "Lastname: $lastname\n";
         $email_content .= "Email: $email\n\n";
-        $email_content .= "Amount:\n$amount\n";
-        $email_content .= "Technology:\n$technology\n";
+        $email_content .= "Telephone:\n$telephone\n";
         $email_content .= "Message:\n$message\n";
 
         // Build the email headers.
-        $email_headers = "From: $name <$email>";
+        $email_headers = "From: $firstname <$email>";
 
         // Send the email.
         if (mail($recipient, $subject, $email_content, $email_headers)) {

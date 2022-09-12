@@ -3261,6 +3261,18 @@ select {
 }
 
 .features-item-new-1,
+.features-item-new-3,
+.features-item-new-4,
+.features-item-new-6 {
+  width: calc(33.3% - 25px);
+}
+
+.features-item-new-2,
+.features-item-new-5 {
+  width: calc(33.3% + 50px);
+}
+
+.features-item-new-1,
 .features-item-new-2 {
   padding-right: 40px;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -3290,6 +3302,14 @@ select {
 
 @media (max-width: 1400px) {
   .features-item-new {
+    width: 50%;
+  }
+  .features-item-new-1,
+  .features-item-new-2,
+  .features-item-new-3,
+  .features-item-new-4,
+  .features-item-new-5,
+  .features-item-new-6 {
     width: 50%;
   }
   .features-item-new-2,
